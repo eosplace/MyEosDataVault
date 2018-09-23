@@ -101,7 +101,7 @@ function addData() {
 function getMyDataVault() {
 	eos.getTableRows({
 		"json": true,
-		"scope": "player1",
+		"scope": useraccount,
 		"code": "eosdatavault",
 		"table": "datavault",
 		"limit": 500
