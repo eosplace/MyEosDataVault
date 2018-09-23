@@ -2,6 +2,7 @@ var eos;
 
 var useraccount = "player1";
 var privkey = "5JDM42HnuB1oVNWmdkcLPozEvMztyqnkVLdJDcqfD38NVht68ck";
+var prefix = "===EOSDataVault=="; 
 
 var config = {
 	keyProvider: privkey,
@@ -34,9 +35,13 @@ function decodeData(id) {
 	
 	bfish = new Blowfish(pass1);
 	var val = bfish.decrypt(atob(data));
-	
-	$("#data_"+id).html(val);
-	$("#data_"+id).css("background-color", ccolor);
+
+	if (val.substr(0,prefix.length) == prefix) {
+	    $("#data_"+id).html(val.substr(prefix.length));
+	    $("#data_"+id).css("background-color", ccolor);
+	} else {
+	    alert("Wrong password!!");
+	}
 	return;
     }
     alert("Data just decrypted!!");
@@ -67,7 +72,7 @@ function addData() {
     }
     
     bfish = new Blowfish(p1);
-    var denc = bfish.encrypt(d);
+    var denc = bfish.encrypt(prefix+d);
 
     eos.contract('eosdatavault').then(contract => 
 				      contract.add({owner: useraccount,
