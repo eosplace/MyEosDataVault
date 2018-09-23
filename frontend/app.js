@@ -5,11 +5,12 @@ var privkey = "5JDM42HnuB1oVNWmdkcLPozEvMztyqnkVLdJDcqfD38NVht68ck";
 var prefix = "===EOSDataVault=="; 
 
 var config = {
-	keyProvider: privkey,
-	httpEndpoint: 'http://192.168.0.105:8800',
-	expireInSeconds: 60,
-	broadcast: true,
-	debug: false,
+    keyProvider: privkey,
+    httpEndpoint: 'http://192.168.0.105:8800',
+    ///httpEndpoint: 'http://127.0.0.1:8888',
+    expireInSeconds: 60,
+    broadcast: true,
+    debug: false,
 };
 
 var {api, ecc, json, Fcbuffer, format} = Eos.modules
