@@ -66,6 +66,7 @@ function eraseData(id) {
 function addData() {
     var d = $("#data-text").val();
     var p1 = $("#pass1-text").val();
+    var master = $("#master-text").val();
 
     if (!goodPassword(p1)) {
 	alert("Your password is too simple!");
