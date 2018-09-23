@@ -104,6 +104,7 @@ function addData() {
 	    //clear the dialog fields
 	    $("#data-text").val("");
 	    $("#pass1-text").val("");
+	    $("#master-text").val("");
 
 	    $("#addModal").modal('hide');
 	    
@@ -157,6 +158,69 @@ function getMyDataVault() {
 	});
 }
 
+function stringFixed(s) {
+    var ret = "";
+    for(var i in s) {
+	var c = s.charCodeAt(i);
+	if (c == 0)
+	    break;
+	ret = ret + s[i];
+    }
+    return ret;
+}
+
+function showAll() {
+    var master = prompt("Enter your master password");
+    var bfishmaster = new Blowfish(master);
+    
+    eos.getTableRows({
+	"json": true,
+	"scope": useraccount,
+	"code": "eosdatavault",
+	"table": "datavault",
+	"limit": 500
+    }).then(result => {
+	console.log(result);
+	
+	$("#tableContent").html("");
+	
+	rows = result.rows;
+	if(result.rows.length == 0) {
+	    $("#tableContent").html("<th></th><td>Account without data!!</td>");
+		return;
+	}
+	
+	for(var i in result.rows) {
+	    var data = result.rows[i];
+
+	    var val = bfishmaster.decrypt(atob(data.pass1));	    
+	    if (val.substr(0,prefix.length) != prefix) {
+		alert("Wrong master password!!");
+		return;
+	    }
+	    var pass1 = stringFixed(val.substr(prefix.length));
+
+	    var bfish = new Blowfish(pass1);
+	    var enc = bfish.decrypt(atob(data.data));
+	    var denc = enc.substr(prefix.length);
+	    
+	    $("#tableContent").append(
+		"<tr>" +
+		    "<th scope='row'>" + data.id + "</th>" +
+		    "<td><span id='data_" + data.id + "'>" + denc + "</span></td>" +
+		    "<td><span id='pass_" + data.id + "'>" + pass1 + "</span></td>" +
+		    "<td>" +
+		    "  <a class='btn btn-danger' href='javascript:eraseData(" + data.id + ")'>Remove</a>" +
+		    "</td>" +
+		    "</tr>");
+	}
+	
+    }).catch(function(exception) {
+	if(exception) {
+	    alert(exception);
+	}
+    });
+}
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
