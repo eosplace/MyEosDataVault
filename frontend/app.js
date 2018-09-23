@@ -2,12 +2,13 @@ var eos;
 
 var useraccount = "user1";
 var privkey = "5JDM42HnuB1oVNWmdkcLPozEvMztyqnkVLdJDcqfD38NVht68ck";
-var prefix = "===EOSDataVault=="; 
+var prefix = "===EOSDataVault==";
+var rows = null;
 
 var config = {
     keyProvider: privkey,
-    //httpEndpoint: 'http://192.168.0.105:8800',
-    httpEndpoint: 'http://127.0.0.1:8888',
+    httpEndpoint: 'http://192.168.0.105:8800',
+    //httpEndpoint: 'http://127.0.0.1:8888',
     expireInSeconds: 60,
     broadcast: true,
     debug: false,
@@ -72,14 +73,31 @@ function addData() {
 	alert("Your password is too simple!");
 	return;
     }
-    
+
+    if (!goodPassword(master)) {
+	alert("Your master password is too simple!");
+	return;
+    }
+
+    bfishmaster = new Blowfish(master);
+    var penc = bfishmaster.encrypt(prefix+p1);
+        
     bfish = new Blowfish(p1);
     var denc = bfish.encrypt(prefix+d);
+
+    if (rows.length > 0) {
+	var val = bfishmaster.decrypt(atob(rows[0].pass1));
+	
+	if (val.substr(0,prefix.length) != prefix) {
+	    alert("Wrong master password!!");
+	    return;
+	}
+    }
 
     eos.contract('eosdatavault').then(contract => 
 				      contract.add({owner: useraccount,
 						    data: btoa(denc),
-						    pass1: p1,
+						    pass1: btoa(penc),
 						    alg: "blowfish"},
 						   {authorization: useraccount}))
 	.then(function (res){
@@ -111,6 +129,7 @@ function getMyDataVault() {
 	    
 	    $("#tableContent").html("");
 
+	    rows = result.rows;
 	    if(result.rows.length == 0) {
 		$("#tableContent").html("<th></th><td>Account without data!!</td>");
 		return;
