@@ -6,8 +6,8 @@ var prefix = "===EOSDataVault==";
 
 var config = {
     keyProvider: privkey,
-    httpEndpoint: 'http://192.168.0.105:8800',
-    ///httpEndpoint: 'http://127.0.0.1:8888',
+    //httpEndpoint: 'http://192.168.0.105:8800',
+    httpEndpoint: 'http://127.0.0.1:8888',
     expireInSeconds: 60,
     broadcast: true,
     debug: false,
@@ -124,9 +124,8 @@ function getMyDataVault() {
 			"<td><span id='data_" + data.id + "'>" + data.data + "</span></td>" +
 			"<td><span id='pass_" + data.id + "'>" + data.pass1 + "</span></td>" +
 			"<td>" +
-			"  <a class='btn btn-danger' href='javascript:eraseData(" + data.id + ")'>Erase</a>" +
-			"  <a class='btn btn-success' href='javascript:decodeData(" + data.id + ")'>Decode</a>" +
-			"  <a class='btn btn-warning'>DecodePass</a>" +
+			"  <a class='btn btn-danger' href='javascript:eraseData(" + data.id + ")'>Remove</a>" +
+			"  <a class='btn btn-success' href='javascript:decodeData(" + data.id + ")'>Show</a>" +
 			"</td>" +
 			"</tr>");
 	    }

@@ -13,17 +13,17 @@
   <body>
     <div class="container">
       <center>
-	<h1>EOSDataVault</h1>
+	<h1>DataVault</h1>
       </center>
 
-      <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addModal">Add Data</button>
+      <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addModal">Add Item</button>
       
       <table class="table table-striped">
 	<thead>
 	  <tr>
 	    <th scope="col">#</th>
 	    <th scope="col" width="40%">Data</th>
-	    <th scope="col" width="20%">Pass1</th>
+	    <th scope="col" width="20%">Password</th>
 	    <th scope="col" width="30%"></th>
 	  </tr>
 	</thead>
@@ -35,7 +35,7 @@
 	<div class="modal-dialog" role="document">
 	  <div class="modal-content">
 	    <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">New Data</h5>
+              <h5 class="modal-title" id="exampleModalLabel">New Item</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 		<span aria-hidden="true">&times;</span>
               </button>
@@ -47,7 +47,7 @@
 		  <textarea class="form-control" id="data-text"></textarea>
 		</div>
 		<div class="form-group">
-		  <label for="pass1-text" class="col-form-label">Password1:</label>
+		  <label for="pass1-text" class="col-form-label">Password:</label>
 		  <input type="password" class="form-control" id="pass1-text">
 		</div>
               </form>
