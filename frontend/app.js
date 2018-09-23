@@ -19,7 +19,11 @@ var {api, ecc, json, Fcbuffer, format} = Eos.modules
 $( document ).ready(function() {
     eos = Eos(config);
 
-    getMyDataVault();
+    if($("#pagetitle").html() == "MyDataVault") {
+	getMyDataVault();
+    } else {
+	getDataVault();
+    }
 });
 
 function goodPassword(pw) {
@@ -156,6 +160,49 @@ function getMyDataVault() {
 			alert(exception);
 		}
 	});
+}
+
+function getDataVault() {
+	eos.getTableRows({
+		"json": true,
+		"scope": useraccount,
+		"code": "eosdatavault",
+		"table": "datavault",
+		"limit": 500
+	}).then(result => {
+	    console.log(result);
+	    
+	    $("#tableContent").html("");
+
+	    rows = result.rows;
+	    if(result.rows.length == 0) {
+		$("#tableContent").html("<th></th><td>Account without data!!</td>");
+		return;
+	    }
+	    
+	    for(var i in result.rows) {
+		var data = result.rows[i];
+		
+		$("#tableContent").append(
+		    "<tr>" +
+			"<th scope='row'>" + data.id + "</th>" +
+			"<td><span id='data_" + data.id + "'>" + data.data + "</span></td>" +
+			"<td>" +
+			"  <a class='btn btn-success' href='javascript:decodeData(" + data.id + ")'>Show</a>" +
+			"</td>" +
+			"</tr>");
+	    }
+	    
+	}).catch(function(exception) {
+		if(exception) {
+			alert(exception);
+		}
+	});
+}
+
+function query() {
+    useraccount = $("#eosaccount").val();
+    getDataVault();
 }
 
 function stringFixed(s) {
