@@ -1,6 +1,6 @@
 var eos;
 
-var useraccount = "player1";
+var useraccount = "user1";
 var privkey = "5JDM42HnuB1oVNWmdkcLPozEvMztyqnkVLdJDcqfD38NVht68ck";
 var prefix = "===EOSDataVault=="; 
 

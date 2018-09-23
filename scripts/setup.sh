@@ -45,22 +45,22 @@ echo "Creating eosdatavault user and registring contract"
 cleos -u http://${NODE_EOS}:8800 --wallet-url http://${NODE_EOS}:${PORT}  create account eosio eosdatavault EOS7rMZfsA4yucaLyuEzAiBrhKj221qABT5zuKqtsq1Q1a1iVxe8M EOS7rMZfsA4yucaLyuEzAiBrhKj221qABT5zuKqtsq1Q1a1iVxe8M
 cleos -u http://${NODE_EOS}:8800 --wallet-url http://${NODE_EOS}:${PORT} set contract eosdatavault ../contract/ -p eosdatavault
 
-echo "Creating player1"
+echo "Creating user1"
 ### Private key: 5JDM42HnuB1oVNWmdkcLPozEvMztyqnkVLdJDcqfD38NVht68ck
 ### Public key: EOS6pXfwZ976YHeNiRgWewX3ZTmmyTD5ej8RkWoQDQXw4J63zNnov
-cleos -u http://${NODE_EOS}:8800 --wallet-url http://${NODE_EOS}:${PORT} create account eosio player1 EOS7oWRkoquFbJstwms4bMUM2LB1qQ9kG8mZ7FjxEMFcCAre3miGu EOS6pXfwZ976YHeNiRgWewX3ZTmmyTD5ej8RkWoQDQXw4J63zNnov
+cleos -u http://${NODE_EOS}:8800 --wallet-url http://${NODE_EOS}:${PORT} create account eosio user1 EOS7oWRkoquFbJstwms4bMUM2LB1qQ9kG8mZ7FjxEMFcCAre3miGu EOS6pXfwZ976YHeNiRgWewX3ZTmmyTD5ej8RkWoQDQXw4J63zNnov
 cleos -u http://${NODE_EOS}:8800 --wallet-url http://${NODE_EOS}:${PORT} wallet import --private-key 5JDM42HnuB1oVNWmdkcLPozEvMztyqnkVLdJDcqfD38NVht68ck
 
-echo "Creating player2"
+echo "Creating user2"
 ### Private key: 5J4sU5tBujAq6xdkQLuYohKPBFuTj4Er9fCtpBYmibrchNCe4L7
 ### Public key: EOS6AcefxUgbQQeK7hXRTyAn2gxgZmsRyKZLVFeUnWrY1p4oMo2Ee
-cleos -u http://${NODE_EOS}:8800 --wallet-url http://${NODE_EOS}:${PORT} create account eosio player2 EOS7oWRkoquFbJstwms4bMUM2LB1qQ9kG8mZ7FjxEMFcCAre3miGu EOS6AcefxUgbQQeK7hXRTyAn2gxgZmsRyKZLVFeUnWrY1p4oMo2Ee
+cleos -u http://${NODE_EOS}:8800 --wallet-url http://${NODE_EOS}:${PORT} create account eosio user2 EOS7oWRkoquFbJstwms4bMUM2LB1qQ9kG8mZ7FjxEMFcCAre3miGu EOS6AcefxUgbQQeK7hXRTyAn2gxgZmsRyKZLVFeUnWrY1p4oMo2Ee
 cleos -u http://${NODE_EOS}:8800 --wallet-url http://${NODE_EOS}:${PORT} wallet import --private-key 5J4sU5tBujAq6xdkQLuYohKPBFuTj4Er9fCtpBYmibrchNCe4L7
 
-echo "Creating player3"
+echo "Creating user3"
 ### Private key: 5KDSPKGxwnrhDWyczJW7MYs6HM2YaYorri1kN8gY4yx4FGDRSXf
 ### Public key: EOS6ZXD8W9ttK3PzypRpGmE7Y2pQq151k9jjEQc4LQq1rivk2Fpu1
-cleos -u http://${NODE_EOS}:8800 --wallet-url http://${NODE_EOS}:${PORT} create account eosio player3 EOS7oWRkoquFbJstwms4bMUM2LB1qQ9kG8mZ7FjxEMFcCAre3miGu EOS6ZXD8W9ttK3PzypRpGmE7Y2pQq151k9jjEQc4LQq1rivk2Fpu1
+cleos -u http://${NODE_EOS}:8800 --wallet-url http://${NODE_EOS}:${PORT} create account eosio user3 EOS7oWRkoquFbJstwms4bMUM2LB1qQ9kG8mZ7FjxEMFcCAre3miGu EOS6ZXD8W9ttK3PzypRpGmE7Y2pQq151k9jjEQc4LQq1rivk2Fpu1
 cleos -u http://${NODE_EOS}:8800 --wallet-url http://${NODE_EOS}:${PORT} wallet import --private-key 5KDSPKGxwnrhDWyczJW7MYs6HM2YaYorri1kN8gY4yx4FGDRSXf
 
 
