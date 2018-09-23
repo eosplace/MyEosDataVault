@@ -19,6 +19,29 @@ $( document ).ready(function() {
     getMyDataVault();
 });
 
+function goodPassword(pw) {
+    if (pw.length < 8) return false;
+    return true;
+}
+
+function decodeData(id) {
+    var ccolor = "rgb(150, 150, 150)";
+    var color = $("#data_"+id).css("background-color");
+
+    if (color != ccolor) { 
+	var pass1 = prompt("Enter password");
+	var data = $("#data_"+id).html();
+	
+	bfish = new Blowfish(pass1);
+	var val = bfish.decrypt(atob(data));
+	
+	$("#data_"+id).html(val);
+	$("#data_"+id).css("background-color", ccolor);
+	return;
+    }
+    alert("Data just decrypted!!");
+}
+
 function eraseData(id) {
     eos.contract('eosdatavault').then(contract => 
 				      contract.erase({owner: useraccount, id: id},
@@ -37,18 +60,28 @@ function eraseData(id) {
 function addData() {
     var d = $("#data-text").val();
     var p1 = $("#pass1-text").val();
+
+    if (!goodPassword(p1)) {
+	alert("Your password is too simple!");
+	return;
+    }
     
+    bfish = new Blowfish(p1);
+    var denc = bfish.encrypt(d);
+
     eos.contract('eosdatavault').then(contract => 
 				      contract.add({owner: useraccount,
-						    data: d,
+						    data: btoa(denc),
 						    pass1: p1,
-						    alg: "plain" },
+						    alg: "blowfish"},
 						   {authorization: useraccount}))
 	.then(function (res){
 	    //clear the dialog fields
 	    $("#data-text").val("");
 	    $("#pass1-text").val("");
 
+	    $("#addModal").modal('hide');
+	    
 	    //refresh table
 	    getMyDataVault();
 	})
@@ -82,11 +115,11 @@ function getMyDataVault() {
 		$("#tableContent").append(
 		    "<tr>" +
 			"<th scope='row'>" + data.id + "</th>" +
-			"<td>" + data.data + "</td>" +
-			"<td>" + data.pass1 + "</td>" +
+			"<td><span id='data_" + data.id + "'>" + data.data + "</span></td>" +
+			"<td><span id='pass_" + data.id + "'>" + data.pass1 + "</span></td>" +
 			"<td>" +
 			"  <a class='btn btn-danger' href='javascript:eraseData(" + data.id + ")'>Erase</a>" +
-			"  <a class='btn btn-success'>Decode</a>" +
+			"  <a class='btn btn-success' href='javascript:decodeData(" + data.id + ")'>Decode</a>" +
 			"  <a class='btn btn-warning'>DecodePass</a>" +
 			"</td>" +
 			"</tr>");
