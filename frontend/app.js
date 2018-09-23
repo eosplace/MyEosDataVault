@@ -38,7 +38,7 @@ function decodeData(id) {
 	var val = bfish.decrypt(atob(data));
 
 	if (val.substr(0,prefix.length) == prefix) {
-	    $("#data_"+id).html(val.substr(prefix.length));
+	    $("#data_"+id).html("<pre>" + val.substr(prefix.length) + "</pre>" );
 	    $("#data_"+id).css("background-color", ccolor);
 	} else {
 	    alert("Wrong password!!");
